@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Shoot")]
     [SerializeField] private Rigidbody _bulletPrefab;
+    [SerializeField] private Rigidbody _rocketPrefab;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private float _shootForce;
 
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         TurnPlayer();
         Jump();
         Shoot();
+        ShootRocket();
     }
 
     void GetInput()
@@ -115,6 +117,16 @@ public class PlayerController : MonoBehaviour
             Rigidbody bulletRb = Instantiate(_bulletPrefab, _spawnPoint.position, _spawnPoint.rotation);
             bulletRb.AddForce(_spawnPoint.forward * _shootForce, ForceMode.Impulse);
             Destroy(bulletRb.gameObject, 5f);
+        }
+    }
+
+    void ShootRocket()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
+            Rigidbody rocketRB = Instantiate(_rocketPrefab, _spawnPoint.position, _spawnPoint.rotation);
+            rocketRB.AddForce(_spawnPoint.forward * _shootForce, ForceMode.Impulse);
+            Destroy(rocketRB.gameObject, 5f);
         }
     }
 }
