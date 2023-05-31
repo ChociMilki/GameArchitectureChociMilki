@@ -9,13 +9,15 @@ public class Door : MonoBehaviour
     [SerializeField] private Material _triggerMaterial;
     [SerializeField] private Animator _doorAnim;
 
+    private bool _isLocked = true;
+
     private float _timer = 0;
 
     private float _waitTime = 1.0f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!_isLocked && other.CompareTag("Player"))
         {
             _timer = 0;
             _doorMeshRenderer.material = _triggerMaterial;
@@ -24,6 +26,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (_isLocked) return;
         if (!other.CompareTag("Player")) return;
 
         _timer += Time.deltaTime;
@@ -39,5 +42,15 @@ public class Door : MonoBehaviour
     {
         _doorAnim.SetBool("Open", false);
         _doorMeshRenderer.material = _doorMaterial;
+    }
+
+    public void LockDoor()
+    {
+        _isLocked = true;
+    }
+
+    public void UnlockDoor()
+    {
+        _isLocked = false;
     }
 }

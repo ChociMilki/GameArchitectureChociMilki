@@ -26,6 +26,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private float _shootForce;
 
+    [Header("Interact")]
+    [SerializeField] private Camera _cam;
+    [SerializeField] private float _interactionDistance;
+    [SerializeField] private LayerMask _interactionLayer;
+
+    [Header("Pick and Drop")]
+    [SerializeField] private Transform _attachTransform;
+    [SerializeField] private LayerMask _pickableLayer;
+    [SerializeField] private float _pickableDistance;
 
     private CharacterController _characterController;
 
@@ -36,7 +45,14 @@ public class PlayerController : MonoBehaviour
     private bool _isGrounded;
     private float _moveMultiplier = 1;
 
-    // Start is called before the first frame update
+
+    //Raycast
+    private RaycastHit _raycastHit;
+    private ISelectable _selectable;
+
+    //Pick and Drop
+    private bool _isPicked = false;
+    private IPickable _pickable;
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -56,6 +72,9 @@ public class PlayerController : MonoBehaviour
         Jump();
         Shoot();
         ShootRocket();
+
+        Interact();
+        PickAndDrop();
     }
 
     void GetInput()
@@ -127,6 +146,56 @@ public class PlayerController : MonoBehaviour
             Rigidbody rocketRB = Instantiate(_rocketPrefab, _spawnPoint.position, _spawnPoint.rotation);
             rocketRB.AddForce(_spawnPoint.forward * _shootForce, ForceMode.Impulse);
             Destroy(rocketRB.gameObject, 5f);
+        }
+    }
+
+    void Interact()
+    {   
+        //Get Ray details from middle of screen 
+        Ray ray = _cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+        if (Physics.Raycast(ray,out _raycastHit, _interactionDistance, _interactionLayer))
+        {
+            _selectable = _raycastHit.transform.GetComponent<ISelectable>();
+
+            if (_selectable != null)
+            {
+                _selectable.OnHoverEnter();
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    _selectable.OnSelect();
+                }
+            }
+        }
+
+        if (_raycastHit.transform == null && _selectable != null)
+        {
+            _selectable.OnHoverExit();
+            _selectable = null;
+        }
+    }
+
+    void PickAndDrop()
+    {
+        Ray ray = _cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        if (Physics.Raycast(ray,out _raycastHit, _pickableDistance, _pickableLayer))
+        {
+            if (Input.GetKeyDown(KeyCode.E) && !_isPicked)
+            {
+                _pickable = _raycastHit.transform.GetComponent<IPickable>();
+                if (_pickable == null) return;
+
+                _pickable.OnPicked(_attachTransform);
+                _isPicked = true;
+                return;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && _isPicked && _pickable != null)
+        {
+            _pickable.OnDropped();
+            _isPicked = false;
         }
     }
 }
