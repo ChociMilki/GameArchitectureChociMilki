@@ -5,26 +5,26 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Movement")]
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _turnSpeed;
+    [SerializeField] private float _moveSpeed; //Player Movement
+    [SerializeField] private float _turnSpeed; //Camera Movement
     [SerializeField] private Transform _cameraTransform;
-    [SerializeField] private bool _invertMouse;
-    [SerializeField] private float _gravity = -9.81f;
-    [SerializeField] private float _jumpVelocity;
-    [SerializeField] private float _sprintMultiplier;
-    [SerializeField] private float _yTurnMin;
-    [SerializeField] private float _yTurnMax;
+    [SerializeField] private bool _invertMouse; //Camera Movement
+    [SerializeField] private float _gravity = -9.81f; //Player Movement
+    [SerializeField] private float _jumpVelocity; //Player jump
+    [SerializeField] private float _sprintMultiplier; //Player Movement
+    [SerializeField] private float _yTurnMin; //Camera Movement
+    [SerializeField] private float _yTurnMax; //Camera Movement
 
     [Header("Ground Check")]
-    [SerializeField] private Transform _groundCheck;
-    [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private float _groundCheckDistance;
+    [SerializeField] private Transform _groundCheck; //Player Movement
+    [SerializeField] private LayerMask _groundMask; //Player Movement
+    [SerializeField] private float _groundCheckDistance; //Player Movement
 
     [Header("Shoot")]
-    [SerializeField] private Rigidbody _bulletPrefab;
-    [SerializeField] private Rigidbody _rocketPrefab;
-    [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private float _shootForce;
+    [SerializeField] private Rigidbody _bulletPrefab; //Player Shoot
+    [SerializeField] private Rigidbody _rocketPrefab; 
+    [SerializeField] private Transform _spawnPoint; //Player Shoot
+    [SerializeField] private float _shootForce; //Player Shoot
 
     [Header("Interact")]
     [SerializeField] private Camera _cam;
@@ -36,14 +36,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _pickableLayer;
     [SerializeField] private float _pickableDistance;
 
-    private CharacterController _characterController;
+    private CharacterController _characterController; //Player Movement
 
-    private float _horizontal, _vertical;
-    private float _mouseX, _mouseY;
-    private float _camXRotation;
-    private Vector3 _playerVelocity;
-    private bool _isGrounded;
-    private float _moveMultiplier = 1;
+    private float _horizontal, _vertical; //Player Input
+    private float _mouseX, _mouseY; //Player Input
+    private float _camXRotation; //Camera Movement
+    private Vector3 _playerVelocity; //Player Movement
+    private bool _isGrounded; //Player Movement
+    private float _moveMultiplier = 1; //Player Movement
 
 
     //Raycast
@@ -55,11 +55,11 @@ public class PlayerController : MonoBehaviour
     private IPickable _pickable;
     void Start()
     {
-        _characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>(); //Player Movement
 
         //Hide Mouse
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked; //Camera Movement
+        Cursor.visible = false; //Camera Movement
     }
 
     // Update is called once per frame
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         PickAndDrop();
     }
 
-    void GetInput()
+    void GetInput() 
     {
         _horizontal = Input.GetAxis("Horizontal");
         _vertical = Input.GetAxis("Vertical");
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
         _mouseY = Input.GetAxis("Mouse Y");
 
         _moveMultiplier = Input.GetButton("Sprint") ? _sprintMultiplier : 1;
-    }
+    } //Done with Input
 
     void MovePlayer()
     {
@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         // V = 1/2 * a * t^2
         _characterController.Move(_playerVelocity * Time.deltaTime);
 
-    }
+    } //Done With Player Movement
 
     void TurnPlayer()
     {
@@ -114,20 +114,20 @@ public class PlayerController : MonoBehaviour
         _camXRotation += Time.deltaTime * _mouseY * _turnSpeed * (_invertMouse ? 1 : -1);
         _camXRotation = Mathf.Clamp(_camXRotation, _yTurnMin, _yTurnMax);
         _cameraTransform.localRotation = Quaternion.Euler(_camXRotation, 0, 0);
-    }
+    }//Done With Turn Player
 
     void GroundCheck()
     {
         _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckDistance, _groundMask);
-    }
+    }//Done With Player Movement and Ground Check
 
     void Jump()
     {
         if (Input.GetButtonDown("Jump"))
-        {
-            _playerVelocity.y = _jumpVelocity;
-        }
-    }
+
+            _playerVelocity.y = _jumpVelocity;        
+        
+    }//Done with Jump
 
     void Shoot()
     {
@@ -137,17 +137,17 @@ public class PlayerController : MonoBehaviour
             bulletRb.AddForce(_spawnPoint.forward * _shootForce, ForceMode.Impulse);
             Destroy(bulletRb.gameObject, 5f);
         }
-    }
+    }//Done 
 
     void ShootRocket()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2")) 
         {
             Rigidbody rocketRB = Instantiate(_rocketPrefab, _spawnPoint.position, _spawnPoint.rotation);
             rocketRB.AddForce(_spawnPoint.forward * _shootForce, ForceMode.Impulse);
             Destroy(rocketRB.gameObject, 5f);
         }
-    }
+    }//Done
 
     void Interact()
     {   
@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
             _selectable.OnHoverExit();
             _selectable = null;
         }
-    }
+    }//Done
 
     void PickAndDrop()
     {
@@ -197,5 +197,5 @@ public class PlayerController : MonoBehaviour
             _pickable.OnDropped();
             _isPicked = false;
         }
-    }
+    }//Done
 }
