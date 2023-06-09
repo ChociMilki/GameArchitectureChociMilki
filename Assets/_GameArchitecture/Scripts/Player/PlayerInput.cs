@@ -17,6 +17,26 @@ public class PlayerInput : MonoBehaviour
     public bool secondaryShootPressed { get; private set; }
 
     private bool _clear;
+
+    //Create Singleton
+    private static PlayerInput _instance;
+
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        _instance = this;
+    }
+
+    public static PlayerInput GetInstance() 
+    { 
+        return _instance; 
+    }
+
+    //End of Singleton
     void Update()
     {
         ClearInputs();

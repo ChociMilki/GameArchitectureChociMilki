@@ -4,9 +4,13 @@ using UnityEngine;
 
 public abstract class Interactor : MonoBehaviour
 {
-    [SerializeField] protected PlayerInput _input;
-    // Start is called before the first frame update
+    protected PlayerInput _input;
 
+    private void Awake()
+    {
+        _input = PlayerInput.GetInstance();
+        Debug.Log("Awake called");
+    }
     void Update()
     {
         Interact();

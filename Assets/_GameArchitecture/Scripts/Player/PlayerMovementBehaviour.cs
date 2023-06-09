@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovementBehaviour : MonoBehaviour
 {
 
-    [SerializeField] private PlayerInput _input;
+    private PlayerInput _input;
 
     [Header("Player Movement")]
     [SerializeField] private float _moveSpeed;
@@ -28,6 +28,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     public bool isGrounded { get; private set; }
     void Start()
     {
+        _input = PlayerInput.GetInstance();
         _characterController = GetComponent<CharacterController>();
     }
 

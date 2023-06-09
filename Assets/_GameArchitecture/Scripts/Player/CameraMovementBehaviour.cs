@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraMovementBehaviour : MonoBehaviour
 {
-    [SerializeField] PlayerInput _input;
+    PlayerInput _input;
 
     [Header("Player Camera Turn")]
     [SerializeField] private float _turnSpeed;
@@ -16,6 +16,7 @@ public class CameraMovementBehaviour : MonoBehaviour
     private float _camXRotation;
     void Start()
     {
+        _input = PlayerInput.GetInstance();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

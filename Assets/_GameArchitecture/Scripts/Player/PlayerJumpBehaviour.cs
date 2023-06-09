@@ -11,14 +11,17 @@ public class PlayerJumpBehaviour : Interactor
     private PlayerMovementBehaviour _moveBehaviour;
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _moveBehaviour = GetComponent<PlayerMovementBehaviour>();
+        Debug.Log("Start Called");
     }
-
     public override void Interact()
     {
+        //if (_moveBehaviour == null)
+        //    _moveBehaviour = GetComponent<PlayerMovementBehaviour>();
+
+
         if (_input.jumpPressed && _moveBehaviour.isGrounded)
             _moveBehaviour.SetYVelocity(_jumpVelocity);
     }

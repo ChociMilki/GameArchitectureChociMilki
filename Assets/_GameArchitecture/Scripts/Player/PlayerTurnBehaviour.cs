@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerTurnBehaviour : MonoBehaviour
 {
-    [SerializeField] PlayerInput _input;
+    PlayerInput _input;
 
     [Header("Player Turn")]
     [SerializeField] private float _turnSpeed;
-
+    private void Start()
+    {
+        _input = PlayerInput.GetInstance();
+    }
     void Update()
     {
         RotatePlayer();
