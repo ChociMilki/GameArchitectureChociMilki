@@ -42,7 +42,9 @@ public class PlayerInput : MonoBehaviour
         ClearInputs();
         ProcessInputs();
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
     void ProcessInputs()
     {
         horizontal = Input.GetAxis("Horizontal");

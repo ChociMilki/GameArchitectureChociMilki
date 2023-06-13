@@ -20,7 +20,7 @@ public class PooledObject : MonoBehaviour
     ObjectPool _associatedPool;
 
     /// <summary>
-    /// TT: SetObjectPo
+    /// TT: S.P.O  for O.P.
     /// </summary>
     /// <param name="pool"></param>
     public void SetObjectPool(ObjectPool pool)
@@ -47,12 +47,13 @@ public class PooledObject : MonoBehaviour
         }
     }
     /// <summary>
-    /// TT: Destroy - deactivates object using destory
+    /// TT: Destroy - deactivates object using destroy
     /// </summary>
     public void Destroy()
     {
         if (_associatedPool != null)
         {
+            //ObjectPool should restore this pooled object. 
             _associatedPool.RestoreObject(this);
         }
     }
