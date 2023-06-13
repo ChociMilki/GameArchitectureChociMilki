@@ -1,7 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using static UnityEngine.UIElements.UxmlAttributeDescription;
+/// <summary>
+/// TT- Notes on ObjectPool: 
+/// object pooling- Instead of destroying and instantiating objects, a pool can be created that will grab and then return an object to a pool after use.
+/// This optimizes memory allocation. ObjectPooling is used across multiple mechanics and instances within the game.
+/// Endless runner games are a good example of this utilization.
+/// </summary>
 public class ObjectPool : MonoBehaviour
 {
 
@@ -16,6 +23,10 @@ public class ObjectPool : MonoBehaviour
     {
         
     }
+    /// <summary>
+    /// TT Notes On Initialize: 
+    /// 
+    /// </summary>
     private void Initialize()
     {
         for (int i = 0; i < startSize; i++)
@@ -24,6 +35,10 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// TT Notes On ANO: 
+    /// 
+    /// </summary>
     private void AddNewObject()
     {
         _tempObject = Instantiate(objectToPool, transform).GetComponent<PooledObject>();
@@ -32,6 +47,11 @@ public class ObjectPool : MonoBehaviour
         _objectPool.Add(_tempObject);
         
     }
+    /// <summary>
+    /// TT Notes on PO GPO: 
+    /// 
+    /// </summary>
+    /// <returns></returns>
 
     public PooledObject GetPooledObject()
     {
