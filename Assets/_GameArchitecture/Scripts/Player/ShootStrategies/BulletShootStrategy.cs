@@ -24,9 +24,18 @@ public class BulletShootStrategy : IShootStrategy
     /// </summary>
     public void Shoot()
     {
-       
+        PooledObject pooledBullet = _interactor._bulletPool.GetPooledObject();
+        pooledBullet.gameObject.SetActive(true);
+        Rigidbody bullet = pooledBullet.GetComponent<Rigidbody>();
+        bullet.transform.position = _spawnPoint.position;
+        bullet.transform.rotation = _spawnPoint.rotation;
+        // takes private var and construcr 
+        bullet.velocity = _spawnPoint.forward *_interactor. GetFinalShootVelocity();
+        // bullet pool just made public 
+        _interactor._bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
     }
+}
 
     // Start is called before the first frame update
 
-}
+

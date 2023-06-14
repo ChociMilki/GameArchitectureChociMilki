@@ -86,5 +86,8 @@ public class PlayerInput : MonoBehaviour
         activatePressed = false;
         primaryShootPressed = false;
         secondaryShootPressed = false;
+
+        weapon1Pressed = false;
+        weapon2Pressed = false; 
     }
 }

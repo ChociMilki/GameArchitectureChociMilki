@@ -19,6 +19,14 @@ public class RocketShootStrategy : IShootStrategy
     }
     public void Shoot()
     {
-        throw new System.NotImplementedException();
+        PooledObject pooledBullet = _interactor._rocketPool.GetPooledObject();
+        pooledBullet.gameObject.SetActive(true);
+        Rigidbody bullet = pooledBullet.GetComponent<Rigidbody>();
+        bullet.transform.position = _spawnPoint.position;
+        bullet.transform.rotation = _spawnPoint.rotation;
+        // takes private var and construcr 
+        bullet.velocity = _spawnPoint.forward * _interactor.GetFinalShootVelocity();
+        // bullet pool just made public 
+        _interactor._bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
     }
 }

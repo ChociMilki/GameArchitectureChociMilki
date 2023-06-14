@@ -12,7 +12,9 @@ public class ShootInteractor : Interactor
 
     [Header("Shoot")]
     //[SerializeField] private Rigidbody _bulletPrefab;
-    [SerializeField] private ObjectPool _bulletPool;
+    // either can be constructed our made public 
+   public  ObjectPool _bulletPool;
+    public ObjectPool _rocketPool; 
     // limited access to this class, BSS uses via 
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private float _shootForce;
@@ -40,30 +42,56 @@ public class ShootInteractor : Interactor
         // default shoot strategy 
         if(_currentStrategy == null)
         {
-            // pass in shoot interactor so that we keep tracl 
+          
             _currentStrategy = new BulletShootStrategy(this); 
         }
+
+        //Change Strategy based on UserInput [Key 1 = Bullet, Key 2 = Rocket] 
+        if(_input.weapon1Pressed)
+        {
+            _currentStrategy = new BulletShootStrategy(this); 
+        }
+        if (_input.weapon2Pressed)
+        {
+            _currentStrategy = new RocketShootStrategy(this);
+        }
+        // references current strategy and calls it to shoot 
+        if (_input.primaryShootPressed && _currentStrategy != null)
+        {
+            _currentStrategy.Shoot(); 
+        }
+
+
     }
     /// <summary>
     /// TT: Shoot -spawn returned object at spawn point position then add force. 
     /// </summary>
     void Shoot()
     {
-            _finalShootVelocity = _moveBehaviour.GetForwardSpeed() + _shootForce;
-        PooledObject pooledBullet = _bulletPool.GetPooledObject();
-        pooledBullet.gameObject.SetActive(true);
-        Rigidbody bullet = pooledBullet.GetComponent<Rigidbody>();
-        bullet.transform.position = _spawnPoint.position;
-        bullet.transform.rotation = _spawnPoint.rotation;
-        bullet.velocity = _spawnPoint.forward * _finalShootVelocity;
-        _bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
+         
+        //PooledObject pooledBullet = _bulletPool.GetPooledObject();
+        //pooledBullet.gameObject.SetActive(true);
+        //Rigidbody bullet = pooledBullet.GetComponent<Rigidbody>();
+        //bullet.transform.position = _spawnPoint.position;
+        //bullet.transform.rotation = _spawnPoint.rotation;
+        //bullet.velocity = _spawnPoint.forward * _finalShootVelocity;
+        //_bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
     }
     /// <summary>
-    /// needed to return private spawn point to BSS
+    /// needed to return private spawn point to BSS for constructor 
     /// </summary>
     /// <returns></returns>
     public Transform GetSpawnPoint()
     {
         return _spawnPoint; 
     }
+
+    public float GetFinalShootVelocity()
+    {
+        _finalShootVelocity = _moveBehaviour.GetForwardSpeed() + _shootForce;
+        return _finalShootVelocity;
+        
+    }
+ 
+
 }
