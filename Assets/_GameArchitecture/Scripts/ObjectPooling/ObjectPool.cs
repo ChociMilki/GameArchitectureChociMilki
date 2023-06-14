@@ -76,16 +76,19 @@ public class ObjectPool : MonoBehaviour
         {
             // dynamically increase the size of our object pool list. 
             AddNewObject();
+            // recursion- calling a method within the method. ensuring  an exit condition (the if) 
             tempObjectToReturn = GetPooledObject();
         }
 
         tempObjectToReturn.gameObject.SetActive(true);
+        // notes that this has been used 
         tempObjectToReturn.ResetObject();
+        //return to pool 
         return tempObjectToReturn;
     }
     /// <summary>
     /// TT: D.P.O 
-    /// 
+    /// destroys pooled object when timer runs out or at x amount of time specified 
     /// </summary>
     /// <param name="obj"></param>
     /// <param name="time"></param>
@@ -103,7 +106,7 @@ public class ObjectPool : MonoBehaviour
 
 /// <summary>
 /// TT: R.O
-/// 
+/// removes obj from used pool into end of object pool list 
 /// </summary>
 /// <param name="obj"></param>
     public void RestoreObject(PooledObject obj)

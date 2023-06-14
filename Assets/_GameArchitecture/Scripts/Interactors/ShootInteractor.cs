@@ -27,26 +27,18 @@ public class ShootInteractor : Interactor
             Shoot();
         }
     }
-
+    /// <summary>
+    /// TT: Shoot -spawn returned object at spawn point position then add force. 
+    /// </summary>
     void Shoot()
     {
             _finalShootVelocity = _moveBehaviour.GetForwardSpeed() + _shootForce;
-
         PooledObject pooledBullet = _bulletPool.GetPooledObject();
         pooledBullet.gameObject.SetActive(true);
-
         Rigidbody bullet = pooledBullet.GetComponent<Rigidbody>();
-
         bullet.transform.position = _spawnPoint.position;
         bullet.transform.rotation = _spawnPoint.rotation;
-
-        //bullet.AddForce(_spawnPoint.forward * _finalShootVelocity, ForceMode.Impulse);
         bullet.velocity = _spawnPoint.forward * _finalShootVelocity;
-
-        //Rigidbody bulletRb = Instantiate(_bulletPrefab, _spawnPoint.position, _spawnPoint.rotation);
-        //bulletRb.AddForce(_spawnPoint.forward * _finalShootVelocity, ForceMode.Impulse);
-
-        //Destroy(bulletRb.gameObject, 5f);
         _bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
     }
 }
