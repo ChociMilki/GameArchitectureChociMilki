@@ -5,10 +5,13 @@ using UnityEngine;
 public class EnemyAttackState : EnemyState
 {
     float _distanceToPlayer;
+    Health _playerHealth;
+    float _damagePerSecond = 20f;
     //Constructor
     public EnemyAttackState(EnemyController enemy) : base(enemy)
     {
-
+        //Grab the health component of the Player
+        _playerHealth = enemy._player.GetComponent<Health>();
     }
     public override void OnStateEnter()
     {
@@ -22,6 +25,7 @@ public class EnemyAttackState : EnemyState
 
     public override void OnStateUpdate()
     {
+        Attack();
         if (_enemy._player != null)
         {
             _distanceToPlayer = Vector3.Distance(_enemy.transform.position, _enemy._player.position);
@@ -39,5 +43,11 @@ public class EnemyAttackState : EnemyState
             _enemy.ChangeState(new EnemyIdleState(_enemy));
         }
     }
-
+    void Attack()
+    {
+        if (_playerHealth != null)
+        {
+            _playerHealth.DeductHealth(_damagePerSecond * Time.deltaTime);
+        }
+    }
 }
