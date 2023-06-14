@@ -15,7 +15,7 @@ public class RocketShootStrategy : IShootStrategy
             _interactor = interactor;
         _spawnPoint = interactor.GetSpawnPoint();
 
-        _interactor.weaponRenderer.material.color = _interactor.rocketWeaponColor;
+        _interactor.gunRenderer.material.color = _interactor.rocketGunColor;
     }
     public void Shoot()
     {

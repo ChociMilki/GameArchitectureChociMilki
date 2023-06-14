@@ -17,7 +17,8 @@ public class BulletShootStrategy : IShootStrategy
         _interactor = interactor;
         _spawnPoint = _interactor.GetSpawnPoint();
         // change weapon color 
-        _interactor.weaponRenderer.material.color = _interactor.bulletWeaponColor; 
+        _interactor.gunRenderer.material.color = _interactor.bulletGunColor;
+        _interactor.gunRenderer.material.color = _interactor.rocketGunColor;
     }
     /// <summary>
     /// 

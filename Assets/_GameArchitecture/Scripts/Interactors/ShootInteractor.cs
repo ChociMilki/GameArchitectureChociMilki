@@ -6,9 +6,9 @@ public class ShootInteractor : Interactor
 
 {
     [Header(" Weapon")]
-    public MeshRenderer weaponRenderer;
-    public Color bulletWeaponColor;
-    public Color rocketWeaponColor; 
+    public MeshRenderer gunRenderer;
+    public Color bulletGunColor;
+    public Color rocketGunColor; 
 
     [Header("Shoot")]
     //[SerializeField] private Rigidbody _bulletPrefab;
