@@ -4,27 +4,42 @@ using UnityEngine;
 
 public class ShootInteractor : Interactor
 {
+    [Header("Gun")]
+    public MeshRenderer gunRenderer;
+    public Color bulletGunColor;
+    public Color rocketGunColor;
+
+
+
     [Header("Shoot")]
     //[SerializeField] private Rigidbody _bulletPrefab;
     [SerializeField] private ObjectPool _bulletPool;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private float _shootForce;
-    [SerializeField] private ShootInputType _shootInput;
+    //[SerializeField] private ShootInputType _shootInput;
     [SerializeField] private PlayerMovementBehaviour _moveBehaviour;
 
     private float _finalShootVelocity;
-    public enum ShootInputType
-    {
-        Primary, //Left Click
-        Secondary //Right Click
-    }
+
+    private IShootStrategy _currentStrategy; //Reference to our current shooting strategy
+    //public enum ShootInputType
+    //{
+    //    Primary, //Left Click
+    //    Secondary //Right Click
+    //}
 
     public override void Interact()
     {
-        if (_shootInput == ShootInputType.Primary && _input.primaryShootPressed
-            || _shootInput == ShootInputType.Secondary && _input.secondaryShootPressed)
+        //if (_shootInput == ShootInputType.Primary && _input.primaryShootPressed
+        //    || _shootInput == ShootInputType.Secondary && _input.secondaryShootPressed)
+        //{
+        //    Shoot();
+        //}
+
+        //Default Shoot Strategy
+        if (_currentStrategy == null)
         {
-            Shoot();
+            _currentStrategy = new BulletShootStrategy(this);
         }
     }
 
@@ -48,5 +63,10 @@ public class ShootInteractor : Interactor
 
         //Destroy(bulletRb.gameObject, 5f);
         _bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
+    }
+
+    public Transform GetSpawnPoint()
+    {
+        return _spawnPoint;
     }
 }

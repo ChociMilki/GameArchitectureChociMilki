@@ -5054,7 +5054,6 @@ GameObject:
   - component: {fileID: 819049174}
   - component: {fileID: 819049173}
   - component: {fileID: 819049172}
-  - component: {fileID: 819049171}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5132,23 +5131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _turnSpeed: 500
---- !u!114 &819049171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 819049165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b960ef4ac0067e45b4bbbd298a080b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletPool: {fileID: 1783128735}
-  _spawnPoint: {fileID: 1169851189}
-  _shootForce: 20
-  _shootInput: 1
-  _moveBehaviour: {fileID: 819049169}
 --- !u!114 &819049172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5178,10 +5160,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b960ef4ac0067e45b4bbbd298a080b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunRenderer: {fileID: 1482487405}
+  bulletGunColor: {r: 0.7019608, g: 0.105882354, b: 0.90588236, a: 0}
+  rocketGunColor: {r: 0.90588236, g: 0.8784314, b: 0.3137255, a: 0}
   _bulletPool: {fileID: 1894020545}
   _spawnPoint: {fileID: 1169851189}
   _shootForce: 10
-  _shootInput: 0
   _moveBehaviour: {fileID: 819049169}
 --- !u!114 &819049174
 MonoBehaviour:

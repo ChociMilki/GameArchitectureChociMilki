@@ -15,6 +15,8 @@ public class PlayerInput : MonoBehaviour
     public bool activatePressed { get; private set; }
     public bool primaryShootPressed { get; private set; }
     public bool secondaryShootPressed { get; private set; }
+    public bool weapon1Pressed { get; private set; }
+    public bool weapon2Pressed { get; private set; }
 
     private bool _clear;
 
@@ -50,12 +52,15 @@ public class PlayerInput : MonoBehaviour
         mouseX = Input.GetAxis("Mouse X");
         mouseY = Input.GetAxis("Mouse Y");
 
-        sprintHeld = Input.GetButton("Sprint");
-        jumpPressed = Input.GetButtonDown("Jump");
-        activatePressed = Input.GetKeyDown(KeyCode.E);
+        sprintHeld = sprintHeld || Input.GetButton("Sprint");
+        jumpPressed = jumpPressed || Input.GetButtonDown("Jump");
+        activatePressed = activatePressed || Input.GetKeyDown(KeyCode.E);
 
-        primaryShootPressed = Input.GetButtonDown("Fire1");
-        secondaryShootPressed = Input.GetButtonDown("Fire2");
+        weapon1Pressed = weapon1Pressed || Input.GetKeyDown(KeyCode.Alpha1);
+        weapon2Pressed = weapon2Pressed || Input.GetKeyDown(KeyCode.Alpha2);
+
+        primaryShootPressed = primaryShootPressed || Input.GetButtonDown("Fire1");
+        secondaryShootPressed = secondaryShootPressed || Input.GetButtonDown("Fire2");
     }
 
     private void FixedUpdate()
