@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-/// <summary>
-///  utilizes command pattern 
-/// </summary>
+
 [DefaultExecutionOrder(-100)]
 public class PlayerInput : MonoBehaviour
 {
@@ -17,7 +15,6 @@ public class PlayerInput : MonoBehaviour
     public bool activatePressed { get; private set; }
     public bool primaryShootPressed { get; private set; }
     public bool secondaryShootPressed { get; private set; }
-
     public bool weapon1Pressed { get; private set; }
     public bool weapon2Pressed { get; private set; }
 
@@ -47,9 +44,7 @@ public class PlayerInput : MonoBehaviour
         ClearInputs();
         ProcessInputs();
     }
-    /// <summary>
-    /// 
-    /// </summary>
+
     void ProcessInputs()
     {
         horizontal = Input.GetAxis("Horizontal");
@@ -57,15 +52,15 @@ public class PlayerInput : MonoBehaviour
         mouseX = Input.GetAxis("Mouse X");
         mouseY = Input.GetAxis("Mouse Y");
 
-        sprintHeld = sprintHeld ||  Input.GetButton("Sprint");
+        sprintHeld = sprintHeld || Input.GetButton("Sprint");
         jumpPressed = jumpPressed || Input.GetButtonDown("Jump");
-        activatePressed = activatePressed ||  Input.GetKeyDown(KeyCode.E);
+        activatePressed = activatePressed || Input.GetKeyDown(KeyCode.E);
+
+        weapon1Pressed = weapon1Pressed || Input.GetKeyDown(KeyCode.Alpha1);
+        weapon2Pressed = weapon2Pressed || Input.GetKeyDown(KeyCode.Alpha2);
 
         primaryShootPressed = primaryShootPressed || Input.GetButtonDown("Fire1");
-        secondaryShootPressed = secondaryShootPressed ||  Input.GetButtonDown("Fire2");
-
-        weapon1Pressed =weapon1Pressed ||  Input.GetKeyDown(KeyCode.Alpha1);
-        weapon2Pressed = weapon2Pressed || Input.GetKeyDown(KeyCode.Alpha2);
+        secondaryShootPressed = secondaryShootPressed || Input.GetButtonDown("Fire2");
     }
 
     private void FixedUpdate()
@@ -88,6 +83,6 @@ public class PlayerInput : MonoBehaviour
         secondaryShootPressed = false;
 
         weapon1Pressed = false;
-        weapon2Pressed = false; 
+        weapon2Pressed = false;
     }
 }
