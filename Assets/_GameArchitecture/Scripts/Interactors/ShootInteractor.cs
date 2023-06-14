@@ -13,7 +13,9 @@ public class ShootInteractor : Interactor
 
     [Header("Shoot")]
     //[SerializeField] private Rigidbody _bulletPrefab;
-    [SerializeField] private ObjectPool _bulletPool;
+    public ObjectPool bulletPool;
+    public ObjectPool rocketPool;
+
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private float _shootForce;
     //[SerializeField] private ShootInputType _shootInput;
@@ -41,32 +43,33 @@ public class ShootInteractor : Interactor
         {
             _currentStrategy = new BulletShootStrategy(this);
         }
-    }
 
-    void Shoot()
-    {
-            _finalShootVelocity = _moveBehaviour.GetForwardSpeed() + _shootForce;
 
-        PooledObject pooledBullet = _bulletPool.GetPooledObject();
-        pooledBullet.gameObject.SetActive(true);
+        //Change Strategy based on User Input [Key 1 = Bullet, Key 2 = Rocket]
+        if (_input.weapon1Pressed)
+        {
+            _currentStrategy = new BulletShootStrategy(this);
+        }
 
-        Rigidbody bullet = pooledBullet.GetComponent<Rigidbody>();
+        if (_input.weapon2Pressed)
+        {
+            _currentStrategy = new RocketShootStrategy(this);
+        }
 
-        bullet.transform.position = _spawnPoint.position;
-        bullet.transform.rotation = _spawnPoint.rotation;
-
-        //bullet.AddForce(_spawnPoint.forward * _finalShootVelocity, ForceMode.Impulse);
-        bullet.velocity = _spawnPoint.forward * _finalShootVelocity;
-
-        //Rigidbody bulletRb = Instantiate(_bulletPrefab, _spawnPoint.position, _spawnPoint.rotation);
-        //bulletRb.AddForce(_spawnPoint.forward * _finalShootVelocity, ForceMode.Impulse);
-
-        //Destroy(bulletRb.gameObject, 5f);
-        _bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
+        if (_input.primaryShootPressed && _currentStrategy != null)
+        {
+            _currentStrategy.Shoot();
+        }
     }
 
     public Transform GetSpawnPoint()
     {
         return _spawnPoint;
+    }
+
+    public float GetFinalShootVelocity()
+    {
+        _finalShootVelocity = _moveBehaviour.GetForwardSpeed() + _shootForce;
+        return _finalShootVelocity;
     }
 }

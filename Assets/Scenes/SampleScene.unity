@@ -5163,7 +5163,8 @@ MonoBehaviour:
   gunRenderer: {fileID: 1482487405}
   bulletGunColor: {r: 0.7019608, g: 0.105882354, b: 0.90588236, a: 0}
   rocketGunColor: {r: 0.90588236, g: 0.8784314, b: 0.3137255, a: 0}
-  _bulletPool: {fileID: 1894020545}
+  bulletPool: {fileID: 1894020545}
+  rocketPool: {fileID: 1783128735}
   _spawnPoint: {fileID: 1169851189}
   _shootForce: 10
   _moveBehaviour: {fileID: 819049169}
