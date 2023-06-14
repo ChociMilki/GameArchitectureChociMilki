@@ -3,28 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootInteractor : Interactor
+
 {
+    [Header(" Weapon")]
+    public MeshRenderer weaponRenderer;
+    public Color bulletWeaponColor;
+    public Color rocketWeaponColor; 
+
     [Header("Shoot")]
     //[SerializeField] private Rigidbody _bulletPrefab;
     [SerializeField] private ObjectPool _bulletPool;
+    // limited access to this class, BSS uses via 
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private float _shootForce;
-    [SerializeField] private ShootInputType _shootInput;
+  //  [SerializeField] private ShootInputType _shootInput;
     [SerializeField] private PlayerMovementBehaviour _moveBehaviour;
 
     private float _finalShootVelocity;
-    public enum ShootInputType
-    {
-        Primary, //Left Click
-        Secondary //Right Click
-    }
+    private IShootStrategy _currentStrategy;  // reference to our current shooting strategy 
+    //public enum ShootInputType
+    //{
+    //    Primary, //Left Click
+    //    Secondary //Right Click
+    //}
 
     public override void Interact()
     {
-        if (_shootInput == ShootInputType.Primary && _input.primaryShootPressed
-            || _shootInput == ShootInputType.Secondary && _input.secondaryShootPressed)
+        //if (_shootInput == ShootInputType.Primary && _input.primaryShootPressed
+        //    || _shootInput == ShootInputType.Secondary && _input.secondaryShootPressed)
+        //{
+        //    Shoot();
+        //}
+
+
+
+        // default shoot strategy 
+        if(_currentStrategy == null)
         {
-            Shoot();
+            // pass in shoot interactor so that we keep tracl 
+            _currentStrategy = new BulletShootStrategy(this); 
         }
     }
     /// <summary>
@@ -40,5 +57,13 @@ public class ShootInteractor : Interactor
         bullet.transform.rotation = _spawnPoint.rotation;
         bullet.velocity = _spawnPoint.forward * _finalShootVelocity;
         _bulletPool.DestroyPooledObject(pooledBullet, 1.0f);
+    }
+    /// <summary>
+    /// needed to return private spawn point to BSS
+    /// </summary>
+    /// <returns></returns>
+    public Transform GetSpawnPoint()
+    {
+        return _spawnPoint; 
     }
 }
