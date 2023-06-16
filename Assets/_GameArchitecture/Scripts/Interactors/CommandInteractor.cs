@@ -28,7 +28,10 @@ public class CommandInteractor : Interactor
 
                     _commands.Enqueue(new MoveCommand(_agent, hitInfo.point));
                 }
-                
+                else if (hitInfo.transform.CompareTag("LootBox"))
+                {
+                    _commands.Enqueue(new BuildCommand(_agent, hitInfo.transform.GetComponent<Builder>()));
+                }
 
             }
         }
