@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour
     public bool secondaryShootPressed { get; private set; }
     public bool weapon1Pressed { get; private set; }
     public bool weapon2Pressed { get; private set; }
+    public bool commandPressed { get; private set; }
 
     private bool _clear;
 
@@ -59,8 +60,12 @@ public class PlayerInput : MonoBehaviour
         weapon1Pressed = weapon1Pressed || Input.GetKeyDown(KeyCode.Alpha1);
         weapon2Pressed = weapon2Pressed || Input.GetKeyDown(KeyCode.Alpha2);
 
+        commandPressed = commandPressed || Input.GetKeyDown(KeyCode.G);
+
         primaryShootPressed = primaryShootPressed || Input.GetButtonDown("Fire1");
         secondaryShootPressed = secondaryShootPressed || Input.GetButtonDown("Fire2");
+
+
     }
 
     private void FixedUpdate()
@@ -84,5 +89,6 @@ public class PlayerInput : MonoBehaviour
 
         weapon1Pressed = false;
         weapon2Pressed = false;
+        commandPressed = false;
     }
 }
