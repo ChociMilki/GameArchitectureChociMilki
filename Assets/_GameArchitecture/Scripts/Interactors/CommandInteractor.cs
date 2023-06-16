@@ -2,23 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-/// <summary>
-/// storagehouse for commands we want to execute 
-/// queue to keep track of commands , will be present in scene 
-/// 
-/// </summary>
+
 public class CommandInteractor : Interactor
 {
     Queue<Command> _commands = new Queue<Command>();
-    [Header("Position Spawn Elements")]
+
+    [Header("Postion Spawn Elements")]
     [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private GameObject positionPrefab;
+    [SerializeField] private GameObject _positionPrefab;
     [SerializeField] private Camera _cam;
 
     private Command _currentCommand;
-    /// <summary>
-    /// based on user input 
-    /// </summary>
+
     public override void Interact()
     {
         if (_input.commandPressed)
@@ -27,15 +22,27 @@ public class CommandInteractor : Interactor
             if (Physics.Raycast(ray, out var hitInfo))
             {
                 if (hitInfo.transform.CompareTag("Ground"))
-                { 
-                    GameObject spawnPositionPrefab = Instantiate(positionPrefab);
-                spawnPositionPrefab.transform.position = hitInfo.point;
-                    _commands.Enqueue(new MoveCommand(_agent, hitInfo.point)); 
-                
+                {
+                    GameObject spawnPositionPrefab = Instantiate(_positionPrefab);
+                    spawnPositionPrefab.transform.position = hitInfo.point;
+
+                    _commands.Enqueue(new MoveCommand(_agent, hitInfo.point));
                 }
                 
 
-            }            
+            }
         }
+        ProcessCommands();
+    }
+
+
+    void ProcessCommands()
+    {
+        if (_currentCommand != null && !_currentCommand.IsComplete) return;
+
+        if (_commands.Count == 0) return;
+
+        _currentCommand = _commands.Dequeue();
+        _currentCommand.Execute();
     }
 }
