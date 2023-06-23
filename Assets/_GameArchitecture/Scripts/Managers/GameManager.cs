@@ -35,13 +35,21 @@ public class GameManager : MonoBehaviour
     {
         return _isInputActive;
     }
-    
+    private void Start()
+    {
+        if (_levels.Length > 0)
+        {
+            ChangeState(GameState.Briefing, _levels[_currentLevelIndex]);
+        }
+    }
     //Change Current Game State
 
     public void ChangeState(GameState state, LevelManager level)
     {
         _currentstate = state;
         _currentLevel = level;
+
+        Debug.Log("Current state is " + _currentstate);
 
         switch (_currentstate)
         {
