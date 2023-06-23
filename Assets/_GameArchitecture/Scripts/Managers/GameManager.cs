@@ -122,6 +122,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Game has ended, you win!");
     }
+
+    public LevelManager GetCurrentLevel()
+    {
+        return _currentLevel;
+    }
     public enum GameState
     {
         Briefing,
