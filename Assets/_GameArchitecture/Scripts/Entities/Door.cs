@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer _doorMeshRenderer;
-    [SerializeField] private Material _doorMaterial;
-    [SerializeField] private Material _triggerMaterial;
+    //[SerializeField] private MeshRenderer _doorMeshRenderer;
+    //[SerializeField] private Material _doorMaterial;
+    //[SerializeField] private Material _triggerMaterial;
     [SerializeField] private Animator _doorAnim;
 
     private bool _isLocked = true;
@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
         if (!_isLocked && other.CompareTag("Player"))
         {
             _timer = 0;
-            _doorMeshRenderer.material = _triggerMaterial;
+            //_doorMeshRenderer.material = _triggerMaterial;
         }
     }
 
@@ -41,7 +41,7 @@ public class Door : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         _doorAnim.SetBool("Open", false);
-        _doorMeshRenderer.material = _doorMaterial;
+        //_doorMeshRenderer.material = _doorMaterial;
     }
 
     public void LockDoor()
@@ -51,6 +51,7 @@ public class Door : MonoBehaviour
 
     public void UnlockDoor()
     {
-        _isLocked = false;
+        _isLocked = false; ;
+        _doorAnim.SetBool("Open", true); // To open the door when we pick up the key, note that this is temporary
     }
 }
