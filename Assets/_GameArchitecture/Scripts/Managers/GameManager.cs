@@ -46,32 +46,74 @@ public class GameManager : MonoBehaviour
         switch (_currentstate)
         {
             case GameState.Briefing:
-                //Do SOmething
+                StartBriefing();
                 Debug.Log("Game state is briefing");
                 break;
             case GameState.LevelStart:
-                //Do Something
+                InitiateLevel();
                 Debug.Log("Game state is start");
                 break;
             case GameState.LevelIn:
-                //Do Something
+                RunLevel();
                 Debug.Log("Game state is level in");
                 break;
             case GameState.LevelEnd:
-                //Do Something
+                CompleteLevel();
                 Debug.Log("Game state is level end");
                 break;
             case GameState.GameOver:
-                //Do Something
+                GameOver();
                 Debug.Log("Game state is game over");
                 break;
             case GameState.GameEnd:
-                //Do Something
+                GameEnd();
                 Debug.Log("Game state is game end");
                 break;
         }
     }
+    private void StartBriefing()
+    {
+        Debug.Log("Briefing Started....");
 
+        //Disable Player Input
+        _isInputActive = false;
+
+        //Start The Level
+        ChangeState(GameState.LevelStart, _currentLevel);
+    }
+
+    private void InitiateLevel()
+    {
+        Debug.Log("Level Started");
+
+        _isInputActive = true;
+
+        _currentLevel.StartLevel();
+        ChangeState(GameState.LevelIn, _currentLevel);
+    }
+
+    private void RunLevel()
+    {
+        Debug.Log("The current level running is " + _currentLevel.gameObject.name);
+    }
+
+    private void CompleteLevel()
+    {
+        Debug.Log("Level Ends here");
+
+        //Go TO The NExt Level
+        ChangeState(GameState.LevelStart, _levels[++_currentLevelIndex]);
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over!");
+    }
+
+    private void GameEnd()
+    {
+        Debug.Log("Game has ended, you win!");
+    }
     public enum GameState
     {
         Briefing,
