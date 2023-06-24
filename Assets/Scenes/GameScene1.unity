@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 0f4c97dd9a853c3468b07d8fa6c5b77d,
+    type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 1fbd3724570364ad7a3919974dfbec32,
     type: 2}
 --- !u!196 &4
@@ -4519,7 +4520,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 9
   m_IsActive: 1
 --- !u!64 &734621027
 MeshCollider:
@@ -7193,7 +7194,7 @@ PrefabInstance:
     - target: {fileID: 3797531595907755680, guid: 225428585de5fb94dba193be4cdcc433,
         type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 3797531595907755680, guid: 225428585de5fb94dba193be4cdcc433,
         type: 3}
@@ -9675,7 +9676,7 @@ GameObject:
   - component: {fileID: 1375186138}
   - component: {fileID: 1375186137}
   m_Layer: 0
-  m_Name: GM
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9706,7 +9707,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1391969582
 GameObject:
