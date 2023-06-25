@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Game state is game end");
                 break; 
         }
+        // LECTURE JUNE 20 -1:28:06
     }
 
 }
