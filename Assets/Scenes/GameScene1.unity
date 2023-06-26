@@ -3246,7 +3246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &456458429
 Transform:
   m_ObjectHideFlags: 0
@@ -9715,9 +9715,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0dc0e32ce77ef44d9a86e7706bbb569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultColour: {fileID: 2100000, guid: 79642a740d42fc245ad69d3181c2aa59, type: 2}
-  _hoverColour: {fileID: 2100000, guid: 8b66c9d3f0fcb5d4d8c66c42a8cee2be, type: 2}
-  _renderer: {fileID: 1235151494}
+  _defaultColour: {fileID: 0}
+  _hoverColour: {fileID: 0}
+  _renderer: {fileID: 0}
   onPush:
     m_PersistentCalls:
       m_Calls:
