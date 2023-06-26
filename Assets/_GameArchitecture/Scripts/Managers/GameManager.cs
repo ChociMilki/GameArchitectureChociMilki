@@ -6,7 +6,7 @@ using UnityEditor.PackageManager;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
 /// <summary>
-/// 
+/// tt : Handles game state management utilizing the level manager. 
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -72,22 +72,26 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.LevelIn:
-                //Do XYZ 
+                //Runs current level 
+                RunLevel(); 
                 Debug.Log("Game state is level in ");
                 break;
 
             case GameState.LevelEnd:
-                //Do XYZ 
+                //Complete level is called 
+                CompleteLevel(); 
                 Debug.Log("Game state is level end");
                 break;
 
             case GameState.GameOver:
-                // Do XYZ 
+                // calls GameOver 
+                GameOver(); 
                 Debug.Log("Game state is game over");
                 break;
 
             case GameState.GameEnd:
-                // Do XYZ 
+                //calls GameEnd 
+                GameEnd(); 
                 Debug.Log("Game state is game end");
                 break; 
         }
@@ -118,5 +122,28 @@ public class GameManager : MonoBehaviour
         //   changes game state
         ChangeState(GameState.LevelIn, currentLevel);
         Debug.Log("Level Started!");
+    }
+    /// <summary>
+    /// tt: 
+    /// </summary>
+    private void RunLevel()
+    {
+        Debug.Log(" the current level running is " +currentLevel.gameObject.name);
+    }
+    private void CompleteLevel()
+    {
+     
+        // moves to next level within the array of levels at the current index of levels. 
+        ChangeState(GameState.LevelStart, levels[++currentLevelIndex]);
+        Debug.Log("Level has been completed");
+    }
+    private void GameEnd()
+    {
+        Debug.Log("Game has ended, Congratulations, you win!"); 
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game is Over!"); 
     }
 }
