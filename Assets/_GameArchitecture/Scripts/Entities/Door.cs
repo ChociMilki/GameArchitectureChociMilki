@@ -51,7 +51,12 @@ public class Door : MonoBehaviour
 
     public void UnlockDoor()
     {
-        _isLocked = false; ;
-        _doorAnim.SetBool("Open", true); // To open the door when we pick up the key, note that this is temporary
+        _isLocked = false;
+    }
+
+    public void OpenDoor(bool state)
+    {
+        if(!_isLocked)
+            _doorAnim.SetBool("Open", state);
     }
 }
