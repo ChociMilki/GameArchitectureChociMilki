@@ -17,10 +17,11 @@ public class PressurePad : MonoBehaviour
 
         foreach (var collider in hitColliders)
         {
-            Debug.Log(collider.gameObject.name);
+            Debug.Log("Collided with" + collider.gameObject.name);
 
             if (collider.CompareTag("PickCube"))
             {
+          
                 onCubePlaced?.Invoke();
                 break;
             }
