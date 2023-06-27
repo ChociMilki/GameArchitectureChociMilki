@@ -30,6 +30,12 @@ public class GameManager : MonoBehaviour
         GameEnd
     }
     /// <summary>
+    /// tt: construct public getter for private var cL used by Level Trigger 
+    /// </summary>
+    /// <returns></returns>
+    public LevelManager GetCurrentLevel() { return currentLevel; }
+
+    /// <summary>
     /// tt: Implements singleton design pattern for the Game Manager. 
     /// </summary>
     private void Awake()
