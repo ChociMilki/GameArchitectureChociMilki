@@ -38,6 +38,14 @@ public class GameManager : MonoBehaviour
         else { instance = this; }
     }
     /// <summary>
+    /// tt: initializes game state change if our index of level is greater than 0 
+    /// </summary>
+    private void Start()
+    {
+        if(levels.Length > 0)
+        { ChangeState(GameState.Briefing, levels[currentLevelIndex]); } 
+    }
+    /// <summary>
     ///tt: Allows public get and private set  usage of the GameManager 
     /// </summary>
     /// <returns></returns>
@@ -56,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         currentState = state;
         currentLevel = level;
+        Debug.Log("Current state is " + currentState); 
 
         switch (currentState)
         {
